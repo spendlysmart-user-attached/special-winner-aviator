@@ -1,8 +1,6 @@
 name: Auto Cleanup Files and History
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -32,7 +30,7 @@ jobs:
             commit_time=$(git log -1 --format="%ct" -- "$file")
             if [ -n "$commit_time" ]; then
               age=$(( now - commit_time ))
-              if [ $age -ge 180 ]; then
+              if [ $age -ge 120 ]; then
                 echo "Deleting: $file (Age: $age seconds)"
                 git rm -f "$file"
               fi
